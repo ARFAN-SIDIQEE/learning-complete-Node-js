@@ -1,0 +1,9 @@
+$kind: http-request
+name: localhost:3000/user
+description: ""
+url: localhost:3000/user
+method: POST
+body:
+  type: json
+  content: ""
+order: 1000

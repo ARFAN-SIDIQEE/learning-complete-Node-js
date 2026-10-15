@@ -1,0 +1,147 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 400px;
+            padding: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f2f2f2;
+        }
+
+        a {
+            color: blue;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Server Rendering</title>
+</head>
+
+<body>
+
+    <h1>URL Shortner</h1>
+
+    <% if (locals.id) { %>
+
+        <p>
+            URL Generated:
+            http://localhost:8001/url/<%= id %>
+        </p>
+
+    <% } %>
+
+
+    <div>
+
+        <form method="POST" action="/url/">
+
+            <label>
+                Enter your Original URL
+            </label>
+
+            <input
+                type="text"
+                name="url"
+                placeholder="https://example.com"
+            >
+
+            <button type="submit">
+                Generate
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <div>
+
+        <table>
+
+            <thead>
+
+                <tr>
+                    <th>S.No</th>
+                    <th>ShortID</th>
+                    <th>Redirect</th>
+                    <th>Click</th>
+                </tr>
+
+            </thead>
+
+
+            <tbody>
+
+                <% urls.forEach((url, index) => { %>
+
+                    <tr>
+
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+
+                        <td>
+                            <%= url.shortId %>
+                        </td>
+
+                        <td>
+                            <a href="/url/<%= url.shortId %>">
+                                <%= url.redirectURL %>
+                            </a>
+                        </td>
+
+                        <td>
+                            <%= url.visitHistory.length %>
+                        </td>
+
+                    </tr>
+
+                <% }) %>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</body>
+
+</html>
+
